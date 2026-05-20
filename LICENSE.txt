@@ -1,0 +1,5 @@
+All rights reserved.
+
+This source package is provided as a private/custom launcher codebase unless the repository owner chooses and adds a different license.
+
+No permission is granted to redistribute, sublicense, or use proprietary game assets, third-party binaries, or production server credentials without the rights holder's permission.

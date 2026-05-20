@@ -1,0 +1,9 @@
+using System.Windows.Controls;
+
+namespace Shaiya_Invasion_Updater.LoadingAnimation
+{
+    public partial class LoadingAnimation : UserControl
+    {
+        public LoadingAnimation() { InitializeComponent(); }
+    }
+}

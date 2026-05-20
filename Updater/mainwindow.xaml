@@ -1,0 +1,184 @@
+<Window x:Class="Shaiya_Invasion_Updater.MainWindow"
+        xmlns:Shaiya_Invasion_Updater="clr-namespace:Shaiya_Invasion_Updater"
+        xmlns:LoadingAnimation="clr-namespace:Shaiya_Invasion_Updater.LoadingAnimation"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Closing="Window_Closing" Title="Shaiya Invasion Updater" Width="960" Height="600"
+        ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None"
+        Icon="Resources/icon.ico">
+  <Control.Background>
+    <ImageBrush ImageSource="Resources/updater_background.png"/>
+  </Control.Background>
+  <FrameworkElement.Resources>
+    <Style x:Key="TextBoxStyle" TargetType="{x:Type Control}">
+      <Setter Property="UIElement.SnapsToDevicePixels" Value="true"/>
+      <Setter Property="FrameworkElement.OverridesDefaultStyle" Value="true"/>
+      <Setter Property="Control.Background" Value="Transparent"/>
+      <Setter Property="Control.BorderBrush" Value="Transparent"/>
+      <Setter Property="Control.Foreground" Value="#7A6754"/>
+      <Setter Property="Control.FontSize" Value="12"/>
+      <Setter Property="Control.FontWeight" Value="SemiBold"/>
+      <Setter Property="FrameworkElement.FocusVisualStyle" Value="{x:Null}"/>
+      <Setter Property="UIElement.AllowDrop" Value="true"/>
+      <Setter Property="Control.Template">
+        <Setter.Value>
+          <ControlTemplate TargetType="{x:Type Control}">
+            <Border Name="Border" CornerRadius="2" Padding="2" Background="Transparent" BorderBrush="Transparent"
+                    BorderThickness="1">
+              <ScrollViewer x:Name="PART_ContentHost" Margin="0"/>
+            </Border>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
+    </Style>
+    <Style TargetType="{x:Type CheckBox}">
+      <Setter Property="UIElement.SnapsToDevicePixels" Value="true"/>
+      <Setter Property="FrameworkElement.OverridesDefaultStyle" Value="true"/>
+      <Setter Property="Control.Template">
+        <Setter.Value>
+          <ControlTemplate TargetType="{x:Type CheckBox}">
+            <BulletDecorator Background="Transparent">
+              <BulletDecorator.Bullet>
+                <Border x:Name="Border" Width="14" Height="14" CornerRadius="0" Background="Transparent"
+                        BorderThickness="1" BorderBrush="Transparent">
+                  <Path x:Name="CheckMark" SnapsToDevicePixels="false" Stroke="#7A6754" StrokeThickness="2"
+                        Data="M 0,0 L 10,10 M 0,10 L 10,0 " Width="10" Height="10" HorizontalAlignment="Center"
+                        VerticalAlignment="Center" Margin="0, 0, 0, 0"/>
+                </Border>
+              </BulletDecorator.Bullet>
+              <ContentPresenter Margin="4,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" RecognizesAccessKey="true"/>
+            </BulletDecorator>
+            <ControlTemplate.Triggers>
+              <Trigger Property="ToggleButton.IsChecked" Value="false">
+                <Setter TargetName="CheckMark" Property="UIElement.Visibility" Value="Collapsed"/>
+              </Trigger>
+              <Trigger Value="{x:Null}" Property="ToggleButton.IsChecked">
+                <Setter TargetName="CheckMark" Property="Path.Data" Value="M 0,7 L 7,0 "/>
+              </Trigger>
+              <Trigger Property="UIElement.IsMouseOver" Value="true">
+                <Setter TargetName="Border" Property="Border.Background" Value="Transparent"/>
+              </Trigger>
+              <Trigger Property="ButtonBase.IsPressed" Value="true">
+                <Setter TargetName="Border" Property="Border.Background" Value="Transparent"/>
+                <Setter TargetName="Border" Property="Border.BorderBrush" Value="Transparent"/>
+              </Trigger>
+              <Trigger Property="UIElement.IsEnabled" Value="false">
+                <Setter TargetName="Border" Property="Border.Background" Value="Transparent"/>
+                <Setter TargetName="Border" Property="Border.BorderBrush" Value="Transparent"/>
+                <Setter Property="Control.Foreground" Value="Transparent"/>
+              </Trigger>
+            </ControlTemplate.Triggers>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
+    </Style>
+    <FontFamily x:Key="CrimsonTextRoman">
+      Georgia
+    </FontFamily>
+  </FrameworkElement.Resources>
+  <Grid>
+    <Rectangle MouseLeftButtonDown="DragWindow" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+      <Shape.Fill>
+        <SolidColorBrush Color="Transparent"/>
+      </Shape.Fill>
+    </Rectangle>
+    <Grid Height="73" VerticalAlignment="Top">
+      <Rectangle MouseLeftButtonDown="DragWindow" Height="73">
+        <Shape.Fill>
+          <ImageBrush ImageSource="Resources/header.jpg"/>
+        </Shape.Fill>
+      </Rectangle>
+      <Rectangle MouseEnter="ButtonMinimize_MouseEnter" MouseLeave="ButtonMinimize_MouseLeave"
+                 MouseLeftButtonDown="ButtonMinimize_MouseLeftButtonDown"
+                 MouseLeftButtonUp="ButtonMinimize_MouseLeftButtonUp" Name="ButtonMinimize" Width="48" Height="20"
+                 HorizontalAlignment="Right" Margin="0, 0, 68, 0">
+        <Shape.Fill>
+          <ImageBrush ImageSource="Resources/button_minimize.png"/>
+        </Shape.Fill>
+      </Rectangle>
+      <Rectangle MouseEnter="ButtonClose_MouseEnter" MouseLeave="ButtonClose_MouseLeave"
+                 MouseLeftButtonDown="ButtonClose_MouseLeftButtonDown"
+                 MouseLeftButtonUp="ButtonClose_MouseLeftButtonUp" Name="ButtonClose" Width="48" Height="20"
+                 HorizontalAlignment="Right" Margin="0, 0, 20, 0">
+        <Shape.Fill>
+          <ImageBrush ImageSource="Resources/button_close.png"/>
+        </Shape.Fill>
+      </Rectangle>
+      <Shaiya_Invasion_Updater:iMenuItem x:Name="LinkWebsite" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="30, 20, 0, 0"
+                                         Text="Website" Link="http://shaiyainvasion.com/"/>
+      <Shaiya_Invasion_Updater:iMenuItem x:Name="LinkLatestNews" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="-120, 20, 0, 0"
+                                         Text="Latest News" IsSelected="false" Link="Updater:LatestNews"/>
+      <Shaiya_Invasion_Updater:iMenuItem x:Name="LinkRepair" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="150, 20, 0, 0"
+                                         Text="Repair" IsSelected="false" Link="Updater:Repair"/>
+      <Shaiya_Invasion_Updater:iMenuItem x:Name="LinkLogIn" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0, 20, 250, 0"
+                                         Text="Log In" IsSelected="true" Link="Updater:LogIn" MaxWidth="150"/>
+      <Shaiya_Invasion_Updater:iMenuItem x:Name="LinkRegister" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0, 20, 160, 0"
+                                         Text="Sign Up" Link="http://shaiyainvasion.com/Account/SignUp"/>
+    </Grid>
+    <Grid Name="GridSlide" HorizontalAlignment="Left" VerticalAlignment="Top" Width="1920"
+          Margin="-960, 100, 0, 0" Column="1" RenderTransformOrigin="0,0">
+      <UIElement.RenderTransform>
+        <TranslateTransform/>
+      </UIElement.RenderTransform>
+      <Grid Name="GridLatestNews" HorizontalAlignment="Left" Margin="0, 0, 0, 0" Width="960" Height="400">
+        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"
+                   FontFamily="{StaticResource CrimsonTextRoman}" FontSize="24" Foreground="#7A6754"/>
+      </Grid>
+      <Grid Name="GridLogIn" HorizontalAlignment="Right" Margin="0, 0, 0, 0" Width="960" Height="400">
+        <Grid Name="GridSavedAccounts" HorizontalAlignment="Center" VerticalAlignment="Center" Width="250"
+              Margin="0, 0, 20, 0" Visibility="Hidden">
+          <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto">
+            <StackPanel Name="AccountRectangles" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+          </ScrollViewer>
+        </Grid>
+        <Grid KeyDown="GridNewAccount_KeyDown" Name="GridNewAccount" HorizontalAlignment="Center"
+              VerticalAlignment="Center" Width="250" Height="300" Margin="0, 0, 20, 0" Visibility="Visible">
+          <Rectangle Width="250" Height="300">
+            <Shape.Fill>
+              <ImageBrush ImageSource="Resources/login.png"/>
+            </Shape.Fill>
+          </Rectangle>
+          <TextBox Name="TextBoxUserID" Style="{StaticResource TextBoxStyle}" CaretBrush="#7A6754"
+                   HorizontalAlignment="Center" VerticalAlignment="Top" Width="164" Height="24" Margin="0, 84, 0, 0"
+                   MaxLength="18" TextAlignment="Center"/>
+          <PasswordBox Name="TextBoxPassword" Style="{StaticResource TextBoxStyle}" CaretBrush="#7A6754"
+                       HorizontalAlignment="Center" VerticalAlignment="Top" Width="164" Height="24" Margin="0, 142, 0, 0"
+                       MaxLength="20" HorizontalContentAlignment="Center"/>
+          <CheckBox Name="CheckBoxSaveAccount" BorderBrush="Transparent" Background="Transparent"
+                    HorizontalAlignment="Left" VerticalAlignment="Top" Width="15" Height="15" Margin="42, 180, 0, 0"
+                    IsChecked="True"/>
+          <Shaiya_Invasion_Updater:iButton x:Name="LogInButton" MouseLeftButtonUp="LogInButton_MouseLeftButtonUp" HorizontalAlignment="Center"
+                                           VerticalAlignment="Top" Margin="0, 210, 0, 0" Text="OK" IsTabStop="true"/>
+          <Shaiya_Invasion_Updater:iMenuItem x:Name="LinkSavedAccounts" Text="Back to my accounts" Link="Updater:LogInSavedAccounts"
+                                             HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" Margin="0, 220, 0, 0"/>
+        </Grid>
+        <LoadingAnimation:LoadingAnimation x:Name="LoadAnimation" Margin="0, 0, 15, 0" Visibility="Hidden"/>
+      </Grid>
+    </Grid>
+    <TextBlock Name="TextBlockUpdaterStatus" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="40, 70"
+               Foreground="#7A6754" FontFamily="{StaticResource CrimsonTextRoman}" FontSize="16"/>
+    <Shaiya_Invasion_Updater:ProgressBar x:Name="UpdaterProgressBar" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="30"
+                                         Visibility="Hidden"/>
+    <Shaiya_Invasion_Updater:iButton2 x:Name="GameStartButton" MouseLeftButtonUp="GameStartButton_Click" HorizontalAlignment="Center"
+                                      VerticalAlignment="Bottom" Margin="30" Text="Start Game" Visibility="Hidden"/>
+
+    <Grid x:Name="GameLaunchPanel" Visibility="Collapsed" Panel.ZIndex="50">
+      <Border Background="#DD050507"/>
+      <Border HorizontalAlignment="Center" VerticalAlignment="Center" Width="560" MinHeight="190"
+              Background="#EE0A0A10" BorderBrush="#AA8C8C96" BorderThickness="1" CornerRadius="10"
+              Padding="30,24,30,24">
+        <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Center">
+          <TextBlock x:Name="GameLaunchTitle" Text="Connecting to the server..." TextAlignment="Center"
+                     FontFamily="{StaticResource CrimsonTextRoman}" Foreground="#FFF8F2E9" FontSize="34"
+                     FontWeight="SemiBold" TextWrapping="Wrap" Margin="0,0,0,8"/>
+          <TextBlock x:Name="GameLaunchSubText" Text="Preparing character selection. Please wait." TextAlignment="Center"
+                     Foreground="#FFE0D2BF" FontSize="16" FontWeight="SemiBold" TextWrapping="Wrap"
+                     Margin="0,0,0,22"/>
+          <ProgressBar IsIndeterminate="True" Height="11" Minimum="0" Maximum="100"/>
+          <TextBlock Text="The game window will appear when character selection is ready." TextAlignment="Center"
+                     Foreground="#CCB9A992" FontSize="13" Margin="0,18,0,0" TextWrapping="Wrap"/>
+        </StackPanel>
+      </Border>
+    </Grid>
+  </Grid>
+</Window>

@@ -1,0 +1,39 @@
+<UserControl x:Class="Shaiya_Invasion_Updater.Account"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             MouseEnter="UserControl_MouseEnter" MouseLeave="UserControl_MouseLeave" Width="270" Height="40"
+             Margin="0, 4" Background="Transparent">
+  <FrameworkElement.Resources>
+    <FontFamily x:Key="CrimsonTextRoman">
+      Georgia
+    </FontFamily>
+  </FrameworkElement.Resources>
+  <Grid>
+    <Grid MouseEnter="GridAccountRemove_MouseEnter" MouseLeave="GridAccountRemove_MouseLeave"
+          MouseLeftButtonDown="GridAccountRemove_MouseLeftButtonDown"
+          MouseLeftButtonUp="GridAccountRemove_MouseLeftButtonUp" Name="GridAccountRemove"
+          Visibility="Hidden" HorizontalAlignment="Left" Width="40" Cursor="Hand">
+      <Panel.Background>
+        <ImageBrush ImageSource="Resources/account_remove.png"/>
+      </Panel.Background>
+      <TextBlock Name="TextBlockX" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#7A6754"
+                 FontFamily="{StaticResource CrimsonTextRoman}" FontSize="20" Text="X"/>
+    </Grid>
+    <Grid MouseEnter="GridAccountName_MouseEnter" MouseLeave="GridAccountName_MouseLeave"
+          MouseLeftButtonDown="GridAccountName_MouseLeftButtonDown"
+          MouseLeftButtonUp="GridAccountName_MouseLeftButtonUp" Name="GridAccountName"
+          HorizontalAlignment="Center" Width="180" Cursor="Hand">
+      <Panel.Background>
+        <ImageBrush ImageSource="Resources/account_rectangle.png"/>
+      </Panel.Background>
+      <Viewbox StretchDirection="DownOnly" Stretch="Uniform" Width="160" Margin="0, 0, 0, 2">
+        <ContentControl>
+          <TextBlock Name="TextBlockUserID" Foreground="#7A6754" FontFamily="{StaticResource CrimsonTextRoman}"
+                     FontSize="18"/>
+        </ContentControl>
+      </Viewbox>
+    </Grid>
+  </Grid>
+</UserControl>

@@ -1,0 +1,21 @@
+<UserControl x:Class="Shaiya_Invasion_Updater.iMenuItem"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             MouseEnter="UserControl_MouseEnter" MouseLeave="UserControl_MouseLeave"
+             MouseLeftButtonDown="UserControl_MouseLeftButtonDown"
+             MouseLeftButtonUp="UserControl_MouseLeftButtonUp" FontSize="22" Margin="10, 0" Cursor="Hand">
+  <FrameworkElement.Resources>
+    <FontFamily x:Key="CrimsonTextRoman">
+      Georgia
+    </FontFamily>
+  </FrameworkElement.Resources>
+  <Grid>
+    <Viewbox StretchDirection="DownOnly" Stretch="Uniform" Height="26">
+      <ContentControl>
+        <TextBlock Name="TextProperty" Foreground="#7A6754" FontFamily="{StaticResource CrimsonTextRoman}"/>
+      </ContentControl>
+    </Viewbox>
+  </Grid>
+</UserControl>
